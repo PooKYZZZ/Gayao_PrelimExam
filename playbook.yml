@@ -1,12 +1,16 @@
 ---
 - hosts: all
   become: true
+  vars_files:
+    - config.yaml
+    
   tasks:
-    - name: install pip3 and python
-        - python3-pip
-        - python
-      state: latest
+    - name: Install latest Python3 and pip3
       apt:
+        name:
+          - python3
+          - python3-pip
+        state: latest
         update_cache: yes
 
     - name: Set pip3 as default pip
@@ -21,7 +25,8 @@
         link: /usr/bin/python
         path: /usr/bin/python3
 
-    - name: install java openJDK
+    - name: Install Java OpenJDK
       apt:
         name: openjdk-21-jdk
         state: latest
+
