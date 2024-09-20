@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: install pip3 and python
+        - python3-pip
+        - python
+      state= latest
+      apt:
+        update_cache: yes
+
+    - name: Set pip3 as default pip
+      alternatives:
+        name: pip
+        link: /usr/bin/pip
+        path: /usr/bin/pip3
+
+    - name: Set python3 as default python
+      alternatives:
+        name: python
+        link: /usr/bin/python
+        path: /usr/bin/python3
+
+    - name: install java openJDK
+      apt:
+        name: openjdk-21-jdk
+        state: latest
